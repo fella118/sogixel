@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sogixel — Présentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0f1e2a;
+            --bg-secondary: #142a38;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-border: rgba(255, 255, 255, 0.08);
+            --accent: #2dd4a8;
+            --accent-glow: rgba(45, 212, 168, 0.15);
+            --accent-dark: #1a8a6e;
+            --text-primary: #f0f4f8;
+            --text-secondary: rgba(240, 244, 248, 0.7);
+            --text-muted: rgba(240, 244, 248, 0.5);
+            --warning-bg: rgba(202, 168, 40, 0.2);
+            --warning-border: rgba(202, 168, 40, 0.5);
+            --warning-text: #e8d44d;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== SLIDE CONTAINER ===== */
+        .slides-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 80px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(60px);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                        visibility 0.6s;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .slide.exit-left {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-60px);
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        .subtitle {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-dark);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: clamp(36px, 4.5vw, 64px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 28px;
+            letter-spacing: -1px;
+        }
+
+        h2 {
+            font-size: clamp(24px, 3vw, 40px);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        h3 {
+            font-size: clamp(18px, 2vw, 24px);
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        p, .body-text {
+            font-size: clamp(15px, 1.3vw, 18px);
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        .body-text strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* ===== LAYOUT HELPERS ===== */
+        .slide-content {
+            width: 100%;
+            max-width: 1280px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .two-col-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+            margin-top: 36px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 36px 48px;
+            margin-top: 40px;
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 32px;
+            backdrop-filter: blur(8px);
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .card:hover {
+            border-color: rgba(45, 212, 168, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .card h3 {
+            color: var(--text-primary);
+        }
+
+        .card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        .card-numbered {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-numbered .card-number {
+            display: block;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 8px 8px 0 0;
+            margin: -32px -32px 24px -32px;
+            border-bottom: 1px solid var(--bg-card-border);
+        }
+
+        /* ===== GREEN BOX (math box) ===== */
+        .green-box {
+            background: var(--accent);
+            color: #0f1e2a;
+            border-radius: 12px;
+            padding: 32px;
+        }
+
+        .green-box h3 {
+            color: #0f1e2a;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .green-box p {
+            color: rgba(15, 30, 42, 0.85);
+            font-size: 15px;
+        }
+
+        .green-box ul {
+            list-style: none;
+            margin: 16px 0;
+        }
+
+        .green-box ul li {
+            font-size: 15px;
+            color: #0f1e2a;
+            padding: 4px 0;
+        }
+
+        .green-box ul li::before {
+            content: "•";
+            margin-right: 10px;
+            font-weight: 700;
+        }
+
+        .green-box .bold-line {
+            font-weight: 700;
+            color: #0f1e2a;
+            margin-top: 12px;
+            font-size: 15px;
+        }
+
+        /* ===== WARNING BOX ===== */
+        .warning-box {
+            background: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            border-radius: 10px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 24px;
+        }
+
+        .warning-box .icon {
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .warning-box p {
+            color: var(--warning-text);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        /* ===== FEATURE ITEM ===== */
+        .feature-item .feature-icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .feature-item .feature-icon .icon-symbol {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 24px;
+        }
+
+        .feature-item h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .feature-item p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* ===== STATS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 36px;
+            margin: 32px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item .stat-value {
+            font-size: clamp(48px, 5vw, 72px);
+            font-weight: 900;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-item .stat-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .stat-item .stat-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .stat-single {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* ===== FOOTER TEXT ===== */
+        .footer-text {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--bg-card-border);
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .footer-text strong {
+            color: var(--text-primary);
+        }
+
+        /* ===== QUOTE BAR ===== */
+        .quote-bar {
+            border-left: 3px solid var(--accent);
+            padding-left: 20px;
+            margin-top: 28px;
+        }
+
+        .quote-bar p {
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* ===== CTA BUTTONS ===== */
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #0f1e2a;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 16px 32px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--accent);
+            font-size: 16px;
+            font-weight: 600;
+            padding: 16px 32px;
+            border-radius: 8px;
+            border: 2px solid var(--accent);
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        /* ===== INFINITY LOOP (SVG) ===== */
+        .infinity-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .infinity-container svg {
+            width: 100%;
+            max-width: 640px;
+        }
+
+        .cycle-labels {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .cycle-label {
+            text-align: center;
+            font-weight: 800;
+            font-size: clamp(16px, 1.6vw, 22px);
+            color: var(--text-primary);
+        }
+
+        /* ===== SLIDE 1 LAYOUT ===== */
+        .slide-1-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .slide-1-layout .image-side {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-1-layout .image-side img {
+            max-width: 100%;
+            max-height: 520px;
+            object-fit: contain;
+            border-radius: 16px;
+            filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.4));
+        }
+
+        /* ===== SLIDE 7 LAYOUT ===== */
+        .slide-7-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .slide-7-layout .image-side img {
+            width: 100%;
+            max-height: 520px;
+            object-fit: cover;
+            border-radius: 16px;
+            filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.3));
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        /* ===== SLIDE COUNTER ===== */
+        .slide-counter {
+            position: fixed;
+            bottom: 20px;
+            right: 40px;
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+            z-index: 100;
+            letter-spacing: 1px;
+        }
+
+        /* ===== NAV ARROWS ===== */
+        .nav-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 40px;
+            display: flex;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .nav-hint button {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--bg-card-border);
+            background: var(--bg-card);
+            color: var(--text-muted);
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-hint button:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide.active .animate-in {
+            animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 0;
+        }
+
+        .slide.active .delay-1 { animation-delay: 0.1s; }
+        .slide.active .delay-2 { animation-delay: 0.2s; }
+        .slide.active .delay-3 { animation-delay: 0.3s; }
+        .slide.active .delay-4 { animation-delay: 0.4s; }
+        .slide.active .delay-5 { animation-delay: 0.5s; }
+        .slide.active .delay-6 { animation-delay: 0.6s; }
+        .slide.active .delay-7 { animation-delay: 0.7s; }
+
+        /* ===== LOGO ===== */
+        .logo {
+            position: fixed;
+            top: 24px;
+            right: 40px;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: 1px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
+            50% { opacity: 0.5; box-shadow: 0 0 16px var(--accent); }
+        }
+
+        /* ===== PILLAR CARDS (slide 4) ===== */
+        .pillar-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 36px;
+        }
+
+        .pillar-card h3 {
+            font-size: 20px;
+            margin-bottom: 14px;
+        }
+
+        .pillar-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* ===== STEP CARDS (slide 8) ===== */
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            padding: 32px;
+            transition: border-color 0.3s;
+        }
+
+        .step-card:hover {
+            border-color: rgba(45, 212, 168, 0.25);
+        }
+
+        .step-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo">
+        <span class="dot"></span>
+        Sogixel
+    </div>
+
+    <div class="slides-wrapper">
+
+        <!-- ===================== SLIDE 1 ===================== -->
+        <div class="slide active" data-slide="1">
+            <div class="slide-content">
+                <div class="slide-1-layout">
+                    <div class="image-side animate-in delay-1">
+                        <img src="images/cracked_bucket.png" alt="Seau fissuré qui fuit">
+                    </div>
+                    <div>
+                        <h1 class="animate-in delay-2">Vous N'Avez Pas un Problème de Leads</h1>
+                        <p class="body-text animate-in delay-3">
+                            Vous avez un <span class="highlight">problème de système de conversion</span>. La plupart des entreprises continuent à injecter plus d'argent — plus de publicités, plus de prospection, plus de trafic — tout en perdant silencieusement des opportunités à travers les fissures. C'est le constat que la plupart des agences ne vous diront jamais. Et c'est exactement ce que Sogixel a été conçu pour résoudre.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 2 ===================== -->
+        <div class="slide" data-slide="2">
+            <div class="slide-content">
+                <div class="subtitle animate-in delay-1">Le Constat Fondamental</div>
+                <h1 class="animate-in delay-2">Imaginez Que Votre Entreprise Est un Seau</h1>
+                <div class="two-col" style="align-items: start;">
+                    <div class="animate-in delay-3">
+                        <p class="body-text">
+                            Chaque euro que vous dépensez en publicité… chaque e-mail que vous envoyez… chaque lead que vous générez… c'est de l'eau versée dans ce seau.
+                        </p>
+                        <br>
+                        <p class="body-text">
+                            Quand le système fonctionne, il se remplit. Quand il fuit, peu importe combien vous versez. <strong>Vous perdez la majeure partie avant qu'elle ne se convertisse.</strong>
+                        </p>
+                        <div class="warning-box">
+                            <span class="icon">⚠️</span>
+                            <p>Le problème, ce n'est pas l'eau. Ce sont les trous que vous n'avez pas encore colmatés.</p>
+                        </div>
+                    </div>
+                    <div class="green-box animate-in delay-4">
+                        <h3>Le Calcul Est Simple</h3>
+                        <p>Un seau percé ne se remplit jamais — peu importe à quelle vitesse vous versez.</p>
+                        <ul>
+                            <li>Plus de dépenses pub ≠ plus de revenus</li>
+                            <li>Plus de leads ≠ plus de ventes conclues</li>
+                            <li>Plus de trafic ≠ un meilleur pipeline</li>
+                        </ul>
+                        <p class="bold-line">Réparez le système d'abord. Ensuite, passez à l'échelle.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 3 ===================== -->
+        <div class="slide" data-slide="3">
+            <div class="slide-content">
+                <div class="subtitle animate-in delay-1">Le Cercle Vicieux</div>
+                <h1 class="animate-in delay-2">Dépenser Plus Alors Que les Résultats Stagnent</h1>
+
+                <div class="infinity-container animate-in delay-3">
+                    <svg viewBox="0 0 640 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Infinity loop -->
+                        <path d="M160 140 C160 60, 320 60, 320 140 C320 220, 480 220, 480 140 C480 60, 320 60, 320 140 C320 220, 160 220, 160 140Z"
+                              stroke="url(#gradient)" stroke-width="24" fill="none" stroke-linecap="round"
+                              stroke-linejoin="round" opacity="0.3"/>
+                        <path d="M160 140 C160 60, 320 60, 320 140 C320 220, 480 220, 480 140 C480 60, 320 60, 320 140 C320 220, 160 220, 160 140Z"
+                              stroke="url(#gradient)" stroke-width="8" fill="none" stroke-linecap="round"
+                              stroke-linejoin="round"/>
+                        <!-- Arrows -->
+                        <polygon points="230,78 245,68 240,88" fill="#2dd4a8" opacity="0.9"/>
+                        <polygon points="410,198 395,208 400,188" fill="#2dd4a8" opacity="0.9"/>
+                        <polygon points="485,98 500,108 480,108" fill="#2dd4a8" opacity="0.9"/>
+                        <polygon points="155,178 140,168 160,168" fill="#2dd4a8" opacity="0.9"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#2dd4a8"/>
+                                <stop offset="50%" stop-color="#1a8a6e"/>
+                                <stop offset="100%" stop-color="#2dd4a8"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+
+                <div class="cycle-labels animate-in delay-4">
+                    <div class="cycle-label">⬆️ Augmenter les<br>Dépenses Pub</div>
+                    <div class="cycle-label">➡️ Les Leads Entrent<br>dans le Funnel</div>
+                    <div class="cycle-label">📉 Résultats<br>Décevants</div>
+                    <div class="cycle-label">💧 Les Leads<br>S'échappent</div>
+                </div>
+
+                <p class="body-text animate-in delay-5" style="margin-top: 32px; text-align: center; max-width: 960px; margin-left: auto; margin-right: auto;">
+                    C'est le cycle dans lequel la plupart des entreprises sont piégées. Elles traitent chaque problème de revenus comme un problème de volume de leads — alors elles injectent plus de budget dans l'acquisition tandis que le système de conversion sous-jacent reste défaillant. Le résultat ? Des coûts qui grimpent pour des gains marginaux. <strong>Le cycle ne se brise que lorsque vous réparez le seau en premier.</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 4 ===================== -->
+        <div class="slide" data-slide="4">
+            <div class="slide-content">
+                <div class="subtitle animate-in delay-1">Découvrez Sogixel</div>
+                <h1 class="animate-in delay-2">Nous Réparons les Deux Côtés de l'Équation</h1>
+
+                <div class="two-col-cards animate-in delay-3">
+                    <div class="pillar-card">
+                        <h3>Pilier 1 — Colmater les Fuites</h3>
+                        <p>Des agents IA qui répondent, qualifient, relancent et prennent rendez-vous — automatiquement. Aucune opportunité ne passe entre les mailles du filet.</p>
+                    </div>
+                    <div class="pillar-card">
+                        <h3>Pilier 2 — Remplir le Seau</h3>
+                        <p>Génération de leads de haute qualité grâce à la prospection sortante, la publicité payante et les systèmes multicanaux — déployés uniquement lorsque le système est prêt à convertir.</p>
+                    </div>
+                </div>
+
+                <div class="footer-text animate-in delay-4">
+                    La plupart des agences vous proposent l'un ou l'autre. Sogixel construit le <strong>système de revenus unifié</strong> qui fait fonctionner les deux ensemble. C'est ce qui transforme un seau percé en moteur de croissance.
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 5 ===================== -->
+        <div class="slide" data-slide="5">
+            <div class="slide-content">
+                <div class="badge animate-in delay-1">PILIER 1</div>
+                <h1 class="animate-in delay-2">Agents IA — Colmater Chaque Fuite</h1>
+                <p class="body-text animate-in delay-3" style="max-width: 960px;">
+                    Avant de dépenser un seul euro supplémentaire en génération de leads, votre système de conversion doit fonctionner parfaitement. Nos agents IA opèrent 24h/24, 7j/7 pour qu'aucun lead ne soit jamais laissé de côté.
+                </p>
+
+                <div class="features-grid animate-in delay-4">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <span class="icon-symbol">⚡</span>
+                        </div>
+                        <h3>Réponse Instantanée aux Leads</h3>
+                        <p>Chaque nouveau lead reçoit une réponse immédiate et personnalisée — de jour comme de nuit, week-ends inclus.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <span class="icon-symbol">💬</span>
+                        </div>
+                        <h3>Relance Multicanal</h3>
+                        <p>Des séquences automatisées par SMS, e-mail et appels assurent des points de contact réguliers sans effort manuel.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <span class="icon-symbol">✓</span>
+                        </div>
+                        <h3>Qualification Automatique</h3>
+                        <p>Les agents IA posent les bonnes questions, scorent les leads et n'orientent que les meilleures opportunités vers votre équipe.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <span class="icon-symbol">📅</span>
+                        </div>
+                        <h3>Prise de Rendez-Vous Directe</h3>
+                        <p>Les prospects qualifiés réservent directement dans votre agenda — sans allers-retours, sans friction, sans no-shows.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <span class="icon-symbol">🗄️</span>
+                        </div>
+                        <h3>Réactivation de Base de Données</h3>
+                        <p>Les anciens leads dormants dans votre CRM sont réengagés automatiquement, débloquant des revenus pour lesquels vous avez déjà payé.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 6 ===================== -->
+        <div class="slide" data-slide="6">
+            <div class="slide-content">
+                <div class="badge animate-in delay-1">PILIER 2</div>
+                <h1 class="animate-in delay-2">Génération de Leads — Remplir un Seau Réparé</h1>
+                <p class="body-text animate-in delay-3" style="max-width: 960px;">
+                    Une fois que votre système de conversion est étanche, il <strong>devient enfin logique de passer à l'échelle.</strong> Chaque lead que vous générez a désormais une chance considérablement plus élevée de se transformer en revenu. Voici comment nous générons la demande :
+                </p>
+
+                <div class="two-col-cards animate-in delay-4">
+                    <div class="card card-numbered">
+                        <span class="card-number">1</span>
+                        <h3>Campagnes de Prospection Sortante</h3>
+                        <p>Prospection ciblée vers votre profil client idéal — conçue pour initier de vraies conversations, pas pour être ignorée.</p>
+                    </div>
+                    <div class="card card-numbered">
+                        <span class="card-number">2</span>
+                        <h3>Publicité Payante</h3>
+                        <p>Des campagnes publicitaires hautement convertissantes sur Meta, Google et au-delà — conçues pour le ROI, pas pour les métriques de vanité.</p>
+                    </div>
+                    <div class="card card-numbered">
+                        <span class="card-number">3</span>
+                        <h3>Réactivation de Base de Données</h3>
+                        <p>Vos contacts existants sont une mine d'or sous-exploitée. Nous transformons les listes froides en opportunités chaudes grâce au séquençage intelligent.</p>
+                    </div>
+                    <div class="card card-numbered">
+                        <span class="card-number">4</span>
+                        <h3>Systèmes de Prospection Multicanal</h3>
+                        <p>Des points de contact coordonnés par e-mail, LinkedIn, SMS et appels créent un effet surround qui produit des résultats.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 7 ===================== -->
+        <div class="slide" data-slide="7">
+            <div class="slide-content">
+                <div class="slide-7-layout">
+                    <div>
+                        <div class="subtitle animate-in delay-1">La Preuve Que Ça Marche</div>
+                        <h1 class="animate-in delay-2">Des Résultats Qui Comptent Vraiment</h1>
+
+                        <div class="stats-grid animate-in delay-3">
+                            <div class="stat-item">
+                                <div class="stat-value">1000+</div>
+                                <div class="stat-label">Rendez-Vous Réservés</div>
+                                <div class="stat-desc">Tous secteurs confondus — B2B, services, bâtiment, santé, et bien plus.</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">24/7</div>
+                                <div class="stat-label">Disponibilité des Agents IA</div>
+                                <div class="stat-desc">Pas de jours de repos. Pas de quarts manqués. Chaque lead traité à la seconde où il arrive.</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-single animate-in delay-4">
+                            <div class="stat-value" style="font-size: 56px;">5x</div>
+                            <div class="stat-label">Taux de Contact Supérieur</div>
+                            <div class="stat-desc">La réponse instantanée et la relance persistante surpassent largement les processus commerciaux manuels.</div>
+                        </div>
+
+                        <div class="quote-bar animate-in delay-5">
+                            <p>Les entreprises qui travaillent avec Sogixel n'obtiennent pas simplement plus de leads. Elles obtiennent <strong>plus de résultats avec les leads qu'elles ont déjà</strong> — et ça change absolument tout.</p>
+                        </div>
+                    </div>
+                    <div class="image-side animate-in delay-3">
+                        <img src="images/team_celebrating.png" alt="Équipe célébrant les résultats">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SLIDE 8 ===================== -->
+        <div class="slide" data-slide="8">
+            <div class="slide-content" style="max-width: 1100px;">
+                <h1 class="animate-in delay-1" style="text-align: center;">La Première Étape N'Est Pas Plus de Trafic</h1>
+                <p class="body-text animate-in delay-2" style="text-align: center; max-width: 900px; margin: 0 auto 40px;">
+                    Si vous dépensez déjà de l'argent pour générer des leads, la solution n'est pas de dépenser davantage. <strong>C'est de réparer le système qui fait fuir la valeur que vous créez déjà.</strong>
+                </p>
+
+                <div class="three-col animate-in delay-3">
+                    <div class="step-card">
+                        <h3>📍 Étape 1 : Diagnostiquer</h3>
+                        <p>Réservez un appel et nous cartographierons exactement où votre seau fuit — gratuitement, sans aucun engagement.</p>
+                    </div>
+                    <div class="step-card">
+                        <h3>🔧 Étape 2 : Réparer</h3>
+                        <p>Nous déployons des agents IA et construisons votre système de conversion avant même de toucher à votre volume de leads.</p>
+                    </div>
+                    <div class="step-card">
+                        <h3>🚀 Étape 3 : Scaler</h3>
+                        <p>Une fois que le système convertit de manière fiable, nous versons plus d'eau — et chaque goutte compte.</p>
+                    </div>
+                </div>
+
+                <p class="body-text animate-in delay-4" style="text-align: center; margin-top: 40px;">
+                    <strong>Réservez votre appel stratégique gratuit aujourd'hui.</strong> Nous vous montrerons exactement où votre pipeline fuit — et exactement comment transformer ça en revenus.
+                </p>
+
+                <div class="cta-group animate-in delay-5" style="justify-content: center;">
+                    <a href="https://www.instagram.com/sogixel.ma/" target="_blank" class="btn-primary">Réservez Votre Stratégie Gratuite</a>
+                    <a href="https://www.instagram.com/sogixel.ma/" target="_blank" class="btn-secondary">En Savoir Plus Sur Sogixel</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Slide Counter -->
+    <div class="slide-counter" id="slideCounter">1 / 8</div>
+
+    <!-- Navigation -->
+    <div class="nav-hint">
+        <button onclick="prevSlide()" aria-label="Précédent">←</button>
+        <button onclick="nextSlide()" aria-label="Suivant">→</button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+        let isTransitioning = false;
+
+        function updateProgress() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
+
+        function goToSlide(index) {
+            if (isTransitioning || index === currentSlide || index < 0 || index >= totalSlides) return;
+            isTransitioning = true;
+
+            const direction = index > currentSlide ? 'forward' : 'backward';
+            const currentEl = slides[currentSlide];
+            const nextEl = slides[index];
+
+            // Remove active and set exit direction
+            currentEl.classList.remove('active');
+            if (direction === 'forward') {
+                currentEl.classList.add('exit-left');
+                nextEl.style.transform = 'translateX(60px)';
+            } else {
+                currentEl.style.transform = 'translateX(60px)';
+                nextEl.classList.remove('exit-left');
+                nextEl.style.transform = 'translateX(-60px)';
+            }
+
+            // Small delay then show next
+            requestAnimationFrame(() => {
+                nextEl.classList.add('active');
+                nextEl.style.transform = '';
+                currentSlide = index;
+                updateProgress();
+
+                setTimeout(() => {
+                    currentEl.classList.remove('exit-left');
+                    currentEl.style.transform = '';
+                    isTransitioning = false;
+                }, 650);
+            });
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                goToSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                goToSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        // Mouse wheel navigation
+        let wheelTimeout = false;
+        document.addEventListener('wheel', (e) => {
+            if (wheelTimeout) return;
+            wheelTimeout = true;
+            if (e.deltaY > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+            setTimeout(() => { wheelTimeout = false; }, 800);
+        });
+
+        // Touch navigation
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        document.addEventListener('touchend', (e) => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) nextSlide();
+                else prevSlide();
+            }
+        });
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>
