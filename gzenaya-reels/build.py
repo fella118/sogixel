@@ -15,7 +15,9 @@ def ar(text):
 
 
 # ---------------------------------------------------------------- hooks (shared)
-HOOK_SECRET = "واش فراسك السر ديال كيفاش يجيك الزاج رقيق؟"
+HOOK_SECRET = "واش فراسك السر ديال كيفاش يجيك الزاج رقيق؟"  # spare, not used in this batch
+HOOK_PROMISE = "باش ما يجيكش الزاج غليظ ولا نظارات ديال لقاع الكاس، تبع معايا."
+HOOK_QUESTION = "واش فراسك بلي وحدة من هاد تلت ديال الكادرات غالية ب تلت مرات؟"
 HOOK_STAT = ("8 من 10 ديال les consultations ديال moins dix، moins quatorze، moins dix-huit "
              "كيجيوني خايفين الزاج يبان كبير ف العين هكا، ولا يبومبي من قدام.")
 HOOK_WARN = "رد البال باش ما تتقولبش."
@@ -23,19 +25,19 @@ HOOK_WARN = "رد البال باش ما تتقولبش."
 # ---------------------------------------------------------------- voice lines (shared)
 V = {
     1: [
-        HOOK_SECRET + " هاد الزاج، خمّن شحال فيه: moins six؟ moins dix؟",
+        HOOK_PROMISE + "\nشوف هاد الزاج. خمّن شحال فيه: moins six؟ moins dix؟",
         "هادي moins treize. و يلا درتي ليها زاج غالي ف monture غالطة، غتخلص بزاف و يجيك الزاج غليظ.",
         "تلت حوايج: indice 1.74، monture en plastique صغيرة، maximum 47، و le centrage بالمليمتر على العين.",
         "شوف الجنب. ماشي غليظ. و العين ما كتصغرش. voilà كيفاش كتجي.",
     ],
     2: [
-        "واش فراسك شنو كتقول هاد الدائرة على عينيك؟ يلا كاين شي خطوط باينين كحل من لخرين، خاصك تعرف هادشي.",
+        "شوف هاد الدائرة. يلا كاين شي خطوط باينين كحل من لخرين، خاصك تعرف هادشي.",
         "غمّض عين وحدة. خلي النظارات يلا كنتي كتلبسهم.",
         "واش كاع الخطوط عندهم نفس le noir؟ دابا بدّل العين. نفس السؤال.",
         "يلا شي خطوط باينين كثر، ممكن يكون عندك astigmatisme. هادا ماشي diagnostic. شوف l'ophtalmologue باش يقيس ليك مزيان.",
     ],
     3: [
-        HOOK_WARN + " l'ordonnance ديالك: يلا ما فهمتيش هاد الأرقام، ممكن تخلص على زاج ما محتاجوش.",
+        HOOK_WARN + "\nيلا ما فهمتيش هاد الأرقام ف l'ordonnance ديالك، ممكن تخلص على زاج ما محتاجوش.",
         "SPH هي la sphère. moins: كتشوف مزيان من قريب، و ضبابة من بعيد. plus: العكس.",
         "CYL هو l'astigmatisme. و l'axe من 0 حتى 180. يلا تحركات النظارات على وجهك، l'axe كيتبدل.",
         "ADD كتبان من بعد الأربعين. هادي هي اللي كتقول لينا واش خاصك progressifs.",
@@ -63,13 +65,13 @@ V = {
                "الزاج غيجي غليظ. الرقم ديال l'ordonnance هو اللي كيقرر.")],
     ],
     7: [
-        "رد البال: يلا ولدك كيقرّب بزاف للتلفزة، ما تقولش غير عادة.",
+        "شوف، يلا ولدك كيقرّب بزاف للتلفزة، ما تقولش غير عادة.",
         "كاينين quatre signes: كيغمّض عينيه باش يشوف من بعيد، كيقرّب بزاف للكتاب، كيشكي بالراس ف العشية، و كيحك عينيه بزاف.",
         "يلا شفتي وحدة من هادو، أول حاجة: l'ophtalmologue. هو اللي كيدير l'examen.",
         "و يلا خصو نظارات: monture flexible، و الزاج ديما organique. ما كيتهرسش، و خفيف على الوجه.",
     ],
     8: [
-        "واش فراسك بلي وحدة من هاد تلت ديال الكادرات غالية ب تلت مرات؟ شكون فيهم؟",
+        HOOK_QUESTION + " شكون فيهم؟",
         "A: شوف la charnière. معدن، flexible.",
         "B: acétate. اللون داخل ف المادة، ماشي صباغة من فوق.",
         "C: خفيفة بزاف. و الجواب هو B. l'acétate ما كيتقشرش، و كيتعاود يتشكل على وجهك.",
@@ -77,8 +79,8 @@ V = {
 }
 
 TIMES = {
-    1: ["0–5 s", "5–10 s", "10–20 s", "20–35 s", "35–40 s"],
-    2: ["0–5 s", "5–8 s", "8–20 s", "20–34 s", "34–40 s"],
+    1: ["0–6 s", "6–11 s", "11–20 s", "20–35 s", "35–40 s"],
+    2: ["0–3 s", "3–8 s", "8–20 s", "20–34 s", "34–40 s"],
     3: ["0–5 s", "5–14 s", "14–26 s", "26–38 s", "38–45 s"],
     4: ["0–3 s", "3–16 s", "16–28 s", "28–40 s", "40–45 s"],
     5: ["0–8 s", "8–14 s", "14–22 s", "22–34 s", "34–40 s"],
@@ -119,7 +121,7 @@ body { font-family: Arial, "Liberation Sans", Helvetica, sans-serif; color: var(
 .tag { display: inline-block; vertical-align: middle; background: #fff; color: var(--ink); font-size: 11px; font-weight: bold;
        border-radius: 9px; padding: 1px 8px; margin-left: 4px; }
 h1.plain { font-size: 24px; margin: 0 0 8px; color: var(--navy); }
-h2 { font-size: 18px; color: var(--navy); margin: 16px 0 8px; }
+h2 { font-size: 18px; color: var(--navy); margin: 12px 0 6px; }
 h2.red { color: var(--red); }
 h2 .ph { color: var(--teal); }
 h2 em { font-weight: normal; font-size: 13px; color: var(--mute); }
@@ -127,8 +129,10 @@ p.lead { color: var(--mute); margin: 0 0 10px; }
 .callout { background: var(--teal-l); border-radius: 5px; padding: 9px 12px; margin: 10px 0; }
 .callout.pink { background: var(--pink); }
 .callout .k { color: var(--red); font-weight: bold; }
-.kit { background: var(--teal-l); border-radius: 5px; padding: 10px 12px; font-size: 12px; margin-top: 14px; }
+.kit { background: var(--teal-l); border-radius: 5px; padding: 9px 12px; font-size: 12px; margin-top: 10px; break-inside: avoid; }
 .kit .lab { color: var(--teal); font-weight: bold; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 2px; }
+.two ul { columns: 2; column-gap: 24px; }
+.two li { break-inside: avoid; }
 ul { margin: 6px 0; padding-left: 16px; }
 li { margin: 3px 0; }
 table { width: 100%; border-collapse: collapse; }
@@ -143,6 +147,8 @@ table.std td { padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-
 table.std tr:nth-child(odd) td { background: var(--grey); }
 table.std tr:nth-child(even) td { background: #fff; }
 table.std td.b { font-weight: bold; }
+table.std.compact td { padding: 4px 8px; }
+table.std.compact th { padding: 5px 8px; }
 table.std td.i { font-style: italic; }
 table.std td.ph-k { color: var(--teal); font-weight: bold; }
 table.std td.ph-l { color: var(--navy); font-weight: bold; }
@@ -182,6 +188,7 @@ table.script tr.hook td.tm { color: var(--teal); }
 table.script tr.cta td { background: var(--cream); }
 table.script tr.cta td.tm { color: var(--orange); }
 table.script tr.cta td.voice { text-align: left; font-weight: bold; font-style: italic; }
+table.script td.voice .ar.hl { font-weight: bold; }
 .spk { display: block; text-align: left; font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase; font-weight: bold; margin-top: 4px; }
 .spk.q { color: var(--orange); } .spk.a { color: var(--teal); }
 .spk:first-child { margin-top: 0; }
@@ -230,14 +237,16 @@ def steps(items):
     return out + "</div>"
 
 
-def voice_cell(v, speakers):
+def voice_cell(v, speakers, hook=False):
     if isinstance(v, list):
         parts = []
         for who, line in v:
             parts.append(f'<span class="spk {"q" if who == "Q" else "a"}">{speakers[who]}</span>'
                          f'<span dir="rtl" class="ar">{html.escape(line)}</span>')
         return "".join(parts)
-    return f'<span dir="rtl" class="ar">{html.escape(v)}</span>'
+    lines = v.split("\n")
+    return "".join(f'<span dir="rtl" class="ar{" hl" if hook and len(lines) > 1 and k == 0 else ""}">'
+                   f'{html.escape(x)}</span>' for k, x in enumerate(lines))
 
 
 def reel_page(r, L):
@@ -260,7 +269,7 @@ def reel_page(r, L):
         see, scr = r["rows"][i]
         out += (f'<tr{cls}><td class="tm">{times[i]}<span>{L["steps"][i]}</span></td>'
                 f'<td class="see">{see}</td><td class="scr">{scr}</td>'
-                f'<td class="voice">{voice_cell(voices[i], L.get("speakers", {}))}</td></tr>')
+                f'<td class="voice">{voice_cell(voices[i], L.get("speakers", {}), i == 0)}</td></tr>')
     see, scr = r["rows"][4]
     out += (f'<tr class="cta"><td class="tm">{times[4]}<span>{L["steps"][4]}</span></td>'
             f'<td class="see">{see}</td><td class="scr">{scr}</td><td class="voice">{CTA[r["cta"]]}</td></tr></table>')
@@ -386,8 +395,9 @@ def client():
     rules = [
         ("Parlez tout de suite", "Le premier mot avant 1 seconde. Pas de « salam », pas de présentation, pas de "
          "« aujourd'hui je vais vous montrer »."),
-        ("Ouvrez avec une phrase qui accroche", f"Une question : « {ar(HOOK_SECRET)} ». Un chiffre : « {ar('8 من 10 ديال les consultations…')} ». "
-         f"Un avertissement : « {ar(HOOK_WARN)} ». Ou lisez directement les chiffres d'une vraie ordonnance."),
+        ("Ouvrez avec une phrase qui accroche", f"Changez d'accroche d'une vidéo à l'autre : « {ar('شوف')} » + le produit, "
+         f"une promesse (« {ar('باش ما يجيكش الزاج غليظ… تبع معايا')} »), un chiffre (« {ar('8 من 10…')} »), "
+         f"un avertissement (« {ar(HOOK_WARN)} ») ou une question (« {ar('واش فراسك…')} »)."),
         ("Dites l'erreur qui coûte cher", "Dans les 5 premières secondes : payer cher et avoir des verres épais, "
          "lourds, ou mal voir."),
         ("Le produit dans la main", "Monture, verre ou ordonnance dans votre main dès la première image. "
@@ -417,18 +427,24 @@ def client():
         ("orange", "LA PREUVE", "22–36 s", "Le bord du verre face caméra, puis les lunettes sur le visage"),
         ("slate", "PHRASE DE FIN", "36–42 s", "Une seule phrase (voir page suivante)"),
     ])
-    p2 += "<h2>Les 3 phrases d'accroche</h2>"
+    p2 += "<h2>Les accroches : on mélange</h2>"
     p2 += std_table(["Type", "Ce que vous dites", "Vidéos"], [
-        [("b", "La question"), ar(HOOK_SECRET), "1 · 2 · 8"],
+        [("b", f"{ar('شوف')} (chouf) + le produit"), ar("شوف هاد الدائرة…") + "<br>" + ar("شوف، يلا ولدك…"), "2 · 7"],
+        [("b", "La promesse"), ar(HOOK_PROMISE), "1"],
         [("b", "Le chiffre"), ar(HOOK_STAT), "5"],
-        [("b", "L'avertissement"), ar(HOOK_WARN), "3 · 7"],
+        [("b", "L'avertissement"), ar(HOOK_WARN) + "<br><span style=\"font-size:11.5px;color:#6b7280\">Une phrase "
+         "à part, seule. Petite pause, puis vous enchaînez.</span>", "3"],
+        [("b", "La question"), ar(HOOK_QUESTION), "8"],
     ], widths=["130px", None, "70px"])
-    p2 += ('<p class="lead" style="margin-top:6px">La vidéo 4 commence par le commentaire du client, la vidéo 6 par '
-           "la question de Saad. Adaptez la fin de la phrase au produit que vous tenez.</p>")
+    p2 += ('<p class="lead" style="margin-top:6px">Ne commencez jamais deux vidéos de suite de la même façon. '
+           f"« {ar('شوف')} » revient aussi juste après l'accroche (vidéos 1 et 4). La vidéo 4 commence par le "
+           "commentaire du client, la vidéo 6 par la question de Saad. En réserve pour la prochaine série : "
+           f"« {ar(HOOK_SECRET)} ».</p>")
     p2 += '<h2 class="red">À ne jamais faire</h2>' + ul([
         "Filmer de loin avec un trépied, derrière le bureau", "Filmer l'écran de l'ordinateur",
         "Montrer seulement les mains, sans votre visage", "Parler sans rien montrer",
         "Commencer par « salam », « aujourd'hui je vais… » ou une question vague qui ne promet rien",
+        "Commencer toutes les vidéos par la même phrase",
     ])
     p2 += "<h2>Deux formats spéciaux</h2>" + ul([
         "<b>Réponse à un commentaire (vidéo 4)</b> : vous lisez la question d'un client à voix haute, puis vous "
@@ -532,7 +548,7 @@ def internal():
     reels = [
         dict(n=1, title="Reel 1 · Guess the correction", color="teal", cta="number",
              sub="Know phase · 40 s · Pattern: Benjelloun 183K (reads the real numbers, lens in hand) + 67K (−14, "
-                 "\"47 maximum\") · Hook: secret question",
+                 "\"47 maximum\") · Hook: promise, then شوف",
              cards=["40 s", "? → −13", "The finished −13 lens/pair", "Comment your number"],
              rows=[("Lens edge pushed into the camera, his face behind it", "Badge ?"),
                    ("Pulls the lens back, face to camera", ""),
@@ -542,7 +558,7 @@ def internal():
              before=before("? → −13"), after=after(40)),
         dict(n=2, title="Reel 2 · Astigmatism self-test", color="teal", cta="test",
              sub="Know phase · 40 s · Pattern: Optinova self-test 303K (vs 1.2K median) rebuilt in Benjelloun's "
-                 "one-take selfie style · Hook: secret question",
+                 "one-take selfie style · Hook: شوف",
              cards=["40 s", "TEST 10 s", "Printed astigmatism dial card", "Comment your test result"],
              rows=[("He pushes the printed dial card toward the lens until it fills the frame", "Badge TEST 10 s"),
                    ("Covers one eye with his hand", ""),
@@ -552,7 +568,7 @@ def internal():
              before=before("TEST 10 s"), after=after(40)),
         dict(n=3, title="Reel 3 · Read your prescription in 30 seconds", color="teal", cta="send",
              sub="Know phase · 45 s · Pattern: Benjelloun prescription overlays (5 of 8 viral) + tt 53K "
-                 "\"Addition +3.00\" · Hook: warning",
+                 "\"Addition +3.00\" · Hook: warning (own line)",
              cards=["45 s", "SPH · CYL · AXE · ADD", "A real prescription (name hidden)", "Send it to someone"],
              rows=[("Prescription pushed toward the camera", "Badge SPH · CYL · AXE · ADD"),
                    ("Overlay: prescription photo, green circle on SPH", "SPH"),
@@ -610,7 +626,7 @@ def internal():
                     "Darija captions on, 7 words or fewer per line"]),
         dict(n=7, title="Reel 7 · Kids: 4 signs", color="navy", cta="story",
              sub="Like phase · 45 s · Pattern: Benjelloun \"Les enfants toujours l'organique\" (13K, the topic reaches "
-                 "less) + Gzenaya's parent-led ads · Hook: warning",
+                 "less) + Gzenaya's parent-led ads · Hook: شوف",
              cards=["45 s", "4 – 12 ans", "A small flexible kids' frame with organic lenses", "Tell your story"],
              rows=[("Kids' frame raised to the lens", "Badge 4 – 12 ans"),
                    ("Counts on his fingers, frame still in hand", "1 · 2 · 3 · 4"),
@@ -620,7 +636,7 @@ def internal():
              before=before("4 – 12 ans"), after=after(45)),
         dict(n=8, title="Reel 8 · Blind test: which frame is the expensive one?", color="navy", cta="series",
              sub="Like phase · 40 s · Pattern: Benjelloun object-in-hand single take, applied to Gzenaya's range · "
-                 "Hook: secret question",
+                 "Hook: question",
              cards=["40 s", "A · B · C", "3 frames, letters A/B/C", "Follow for the series"],
              rows=[("Three frames fanned in hand toward the camera", "Badge A · B · C"),
                    ("Frame A: hinge close to the camera", "A"),
@@ -643,7 +659,7 @@ def internal():
          "No salam, no name, no \"today I will show you\"."),
         ("Open with a hook line or the real numbers",
          f"His viral openers: \"{ar('شوف، يلا كنتي غادير…')}\", reading a real prescription aloud (\"{ar('هادي ناقصة عشرة…')}\"), "
-         f"or \"{ar('الناس اللي عندهم…')}\". Ours drop \"{ar('شوف')}\" for a secret, a number or a warning (v3 below)."),
+         f"or \"{ar('الناس اللي عندهم…')}\". Ours blend five hook types so no two reels in a row open the same way (v3 below)."),
         ("Name the costly mistake in the first 5 s",
          f"213K: \"{ar('غاطيح فلوسك، دير زاج غالي ويجيك الزاج غليظ')}\". 139K: \"{ar('تقدر دير أغلى زاج وما تشوفش مزيان')}\". "
          "The fear is losing money at the shop."),
@@ -668,16 +684,13 @@ def internal():
         "The proof is physical and filmed in his own shop: a real lens, a real prescription, the result on a face. "
         "That builds the trust of the Like phase without any selling. He never asks for a sale on camera.",
     ])
-    p1 += "<h2>v3: new hooks, #6 becomes a conversation</h2>" + ul([
-        f"<b>Hooks.</b> \"{ar('شوف')}\" no longer opens our reels. #1, #2, #8 open with a secret question "
-        f"(\"{ar(HOOK_SECRET)}\"), #5 with a number (\"{ar('8 من 10 ديال les consultations ديال moins dix، moins quatorze، moins dix-huit…')}\"), "
-        f"#3 and #7 with a warning (\"{ar(HOOK_WARN)}\"). The question must promise the payoff: a bare "
-        f"\"{ar('واش خبارك أن…')}\" FAQ still sits at 9K–22K.",
-        f"<b>#4 stays a comment reply</b> (\"{ar('واش les progressifs كيدوّخو؟')}\"). Unchanged. Like phase; feeds \"Ask him a question\".",
-        "<b>#6 becomes a conversation</b> (was the DM read-out). Saad asks 3 questions off camera, each one an ICP "
-        "fear: \"I paid 2500 DH and the lenses are thick, did I get scammed?\", \"I'm −10, will the lens look big or "
-        "bulge?\", \"They told me I need 1.74, is that true?\". The optician answers on camera with the 3 lenses in "
-        "hand. No fake DM needed.",
+    p1 += "<h2>v3: blended hooks, #6 becomes a conversation</h2>" + ul([
+        f"<b>Hooks, blended.</b> \"{ar('شوف')}\" stays, mixed with four other hook types so no two reels in a row "
+        "open the same way. Hook mix on page 2.",
+        "<b>#4 stays a comment reply</b>, unchanged.",
+        "<b>#6 becomes a conversation</b> (was the DM read-out). Saad asks 3 ICP-fear questions off camera (paid "
+        "2500 DH and the lenses are thick; will a −10 lens look big or bulge; do I really need 1.74). The optician "
+        "answers with the 3 lenses in hand. No fake DM needed.",
     ])
 
     p2 = '<h1 class="plain">Same topic, opposite results</h1><p class="lead">The topic does not make the reel go ' \
@@ -698,13 +711,22 @@ def internal():
     p2 += (f'<p class="lead" style="margin-top:6px">Openers at the bottom of his feed: "{ar("واش خبارك أن…")}" (22K, 9K), '
            f'"{ar("أهلا بيكم")}" (13K). "{ar("شوف")}" alone is not enough (it also opens two 16–19K reels): it works '
            "with the object in hand, the costly mistake and the number.</p>")
-    p2 += '<h2 class="red">Never do (none of these passed 35K)</h2>' + ul([
+    p2 += '<h2 class="red">Never do (none of these passed 35K)</h2><div class="two">' + ul([
         "Wide tripod shot from across the desk (best result: 33K)", "Screen recording of software (13K–21K)",
         "Hands only, no face (14K)", "Abstract topic with no object to show (pen only: 9K–11K)",
-        "Opening with a question that sounds like a FAQ, a greeting or \"today\"",
-    ])
+        "Opening with a question that sounds like a FAQ (ours must promise a payoff), a greeting or \"today\"",
+    ]) + "</div>"
+    p2 += "<h2>Hook mix (v3)</h2>" + std_table(["Type", "Line", "Reels"], [
+        [("b", f"{ar('شوف')} (chouf) + object"), ar("شوف هاد الدائرة…") + "<br>" + ar("شوف، يلا ولدك…"),
+         "#2 · #7 (+ after hook #1, #4)"],
+        [("b", "Promise"), ar(HOOK_PROMISE), "#1"],
+        [("b", "Number"), ar("8 من 10 ديال les consultations ديال moins dix، moins quatorze، moins dix-huit…"), "#5"],
+        [("b", "Warning"), ar(HOOK_WARN) + " <i>(said alone, then pause)</i>", "#3"],
+        [("b", "Question"), ar(HOOK_QUESTION), "#8"],
+        [("b", "Spare"), ar(HOOK_SECRET), "next batch"],
+    ], cls="std compact", widths=["120px", None, "150px"])
     p2 += "<h2>Anatomy of a reel (40–45 s)</h2>" + steps([
-        ("navy", "HOOK", "0–5 s", "Hook line (secret, number or warning) + object in shot. First word ≤ 0.7 s"),
+        ("navy", "HOOK", "0–5 s", "One hook line from the mix + object in shot. First word ≤ 0.7 s"),
         ("red", "THE MISTAKE", "5–10 s", "What it costs: money, a thick lens, not seeing well"),
         ("teal", "RULE + NUMBER", "10–22 s", "One number to check. Prescription overlay, green circle"),
         ("orange", "PROOF", "22–36 s", "Lens edge to camera, then the glasses on the face"),
